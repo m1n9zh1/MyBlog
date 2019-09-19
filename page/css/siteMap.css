@@ -1,0 +1,39 @@
+
+.content{
+    display: block;
+    width: 1140px;
+    min-height: 750px;
+    margin: 50px auto;
+    border-radius: 3px;
+    box-shadow: 0px 0px 10px #000000;
+}
+.content > h2{
+    text-align: center;
+    padding: 80px 0 65px 0;
+}
+.content > dl{
+    text-align: left;
+    padding: 0 100px;
+}
+.content > dl > dt{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+.content > dl > dd {
+
+    padding: 0px 0px 10px 20px;
+}
+.content > dl > dd > a {
+    color: #1a1a1a;
+    font-size: 14px;
+}
+.content > dl > dd > a:hover{
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1170px) {
+    .content{
+        width: 970px;
+    }
+}

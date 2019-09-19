@@ -1,0 +1,23 @@
+.article-wrap{
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #1a1a1a;
+    padding: 30px 20px 20px 20px ;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+}
+.article-header{
+    border-bottom: 1px solid #777777;
+    margin-bottom: 20px;
+
+}
+
+.article-header > p{
+    margin: 10px 0;
+    font-size: 14px;
+}
+.article-header > p > span {
+    padding-right: 5px;
+}
+.article-header > p > a {
+    color: #1da5dd;
+}

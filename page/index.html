@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>我的博客</title>
+    <link rel="stylesheet" href="./css/cssBase.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+
+</head>
+<body>
+    <header class="header">
+        <div class="contain">
+            <div class="nav">
+                <p>何明志个人博客</p>
+                <ul>
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+                    <li>
+                        <a href="./siteMap.html">地图</a>
+                    </li>
+                    <li>
+                        <a href="./comments.html">留言</a>
+                    </li>
+                    <li>
+                        <a href="./aboutMe.html">关于我</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="search-box" id="search-box">
+                <input id="search" type="text" placeholder="请输入关键字" @keydown.enter="search"/>
+                <button @click="search">搜索</button>
+            </div>
+        </div>
+    </header>
+    <div class="content-wrap">
+        <div class="content">
+            <div class="content-left" id="blog_content">
+                <div class="blog-wrap" v-for="item in blogList" :key="item.id">
+                    <div class="blog">
+                        <a :href="'./blogDetails.html?bid=' + item.id" class="title">{{item.title}}</a>
+                        <p class="article">{{item.content}}</p>
+                    </div>
+                    <div class="blog-info">
+                        <p >发布于：{{item.ctime}} | 浏览量：{{item.views}} | tags ：<a v-for="tag in item.tags" :key="tag" @click="queryBlogByTag(tag)">{{tag}}</a></p>
+                    </div>
+                </div>
+                <div class="turn-page">
+                    <ul v-if="Math.ceil(count / pageSize) !== 1">
+                        <li @click="prevPage" v-if="curPage != 1"><</li>
+                        <li v-for="item in pageArr" @click="jumpPage(item.page)" v-bind:class="{'curpage': item.page == curPage}" >{{item.text}}</li>
+                        <li @click="nextPage" v-if="curPage != Math.ceil(count / pageSize)">></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content-right">
+                <div class="panel" id="random_tags">
+                    <div class="title">随机标签云</div>
+                    <div class="random-tags">
+                        <a :href="'./index.html?tag=' + item.tag"
+                           v-for="item in tagList"
+                           :key="item.id"
+                           :style="{color:randomColor(), fontSize:randomSize()}"
+
+                        >
+                            {{item.tag}}
+                        </a>
+                    </div>
+                </div>
+                <div class="panel" id="recently_hot">
+                    <div class="title">最近热门</div>
+                    <div class="recently-hot">
+                        <ul>
+                            <li v-for="item in article" :key="item.id">
+                                <a :href="'./blogDetails.html?bid=' + item.id">{{item.title}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel" id="recently_comments">
+                    <div class="title">最近评论</div>
+                    <div class="recently-comments">
+                        <ul>
+                            <li v-for="item in commentList">
+                                <p>
+                                    <span  class="user">{{item.user_name}}</span>
+                                    <span class="time">[{{item.time}}]</span>
+                                </p>
+                                <a href="/">{{item.comment}}</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer class="footer">
+            <p>
+                Copyright © 2019-2019
+            </p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="./js/axios.min.js" ></script>
+    <script src="./js/index.js" ></script>
+    <script src="./js/base.js" ></script>
+</body>
+</html>

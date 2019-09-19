@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>何明志个人博客</title>
+    <link rel="stylesheet" href="./css/cssBase.css" />
+    <link rel="stylesheet" href="./css/comments.css" />
+    <link rel="stylesheet" href="./css/blogDetails.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="contain">
+            <div class="nav">
+                <p>何明志个人博客</p>
+                <ul>
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+                    <li>
+                        <a href="./siteMap.html">地图</a>
+                    </li>
+                    <li>
+                        <a href="./comments.html">留言</a>
+                    </li>
+                    <li>
+                        <a href="./aboutMe.html">关于我</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="content-wrap">
+        <div class="content">
+            <div class="content-left" id="blog_content">
+                <div class="article-wrap" v-for="item in article" :key="item.id">
+                    <div class="article-header">
+                        <h2>{{item.title}}</h2>
+                        <p>
+                            <span>发布于：{{item.ctime}}</span>
+                            <span>浏览({{item.views}})</span>
+                            <a href="#edit-content" @click="setParent(-1)">评论({{commentCount}})</a>
+                        </p>
+                    </div>
+                    <div v-html="item.content"></div>
+                </div>
+                <div class="comments-wrap" v-if="commentCount > 0">
+                    <p id="comment">评论：目前有{{commentCount}}条评论</p>
+                    <div class="comment-box" v-for="item in commentList" :key="item.id">
+                        <div class="comment">
+                            <p>
+                                <span class="username">{{item.user_name}}：</span>
+                                <span>发表于{{item.ctime}}</span>
+                                <a href="#edit-content" @click="setParent(item.id)">[回复]</a>
+                            </p>
+                            <p>{{item.comment}}</p>
+                        </div>
+                        <div class="reply-box" v-if="item.children">
+                            <div class="reply" v-for="reply in item.children" :key="reply.id">
+                                <p>
+                                    <span class="username">{{reply.user_name}}：</span>
+                                    <span>发表于{{reply.ctime}}</span>
+                                    <a href="#edit-content" @click="setParent(reply.id)">[回复]</a>
+                                </p>
+                                <p>
+                                    <span>@{{reply.parentName}}</span>
+                                    <span>{{reply.comment}}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="turn-comment">
+                        <ul v-if="Math.ceil(commentNum / commentSize)> 1">
+                            <li @click="prevComment" v-if="curNum != 1"><</li>
+                            <li v-for="item in pageArr" @click="jumpComment(item.page)" :class="{'cur-comment': item.page == curNum}" >{{item.text}}</li>
+                            <li @click="nextComment" v-if="curNum != Math.ceil(commentNum / commentSize)">></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="edit-wrap">
+                    <p>留下你想说的</p>
+                    <div class="edit-box">
+                        <div v-if="hasCookie" class="has_cookie">
+                            欢迎<strong style="margin-left: 5px">{{author}}</strong>
+                        </div>
+                        <div v-else>
+                            <input class="nickname" type="text" placeholder="昵称">
+                            <input class="email" type="text" placeholder="邮箱（评论被回复时你能收到通知）" @blur="checkEmail">
+                            <span v-if="!emailFormat">邮箱格式错误了哦~</span>
+                        </div>
+
+                        <div>
+                            <textarea id="edit-content" class="edit-content" placeholder="说些有意义的哦" ></textarea>
+                        </div>
+                        <div>
+                            <input class="identify" type="text" placeholder="验证码">
+                            <span v-html="randomCode.data" @click="getRandomCode"></span>
+                            <span style="color:red; font-size: 14px;">{{identify}}</span>
+                        </div>
+                        <div>
+                            <button @click="addComment" :class="{'disable' : flag}">提交</button>
+                            <b v-if="flag">{{submit}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-right">
+                <div class="panel" id="random_tags">
+                    <div class="title">随机标签云</div>
+                    <div class="random-tags">
+                        <a :href="'./index.html?tag=' + item.tag"
+                           v-for="item in tagList"
+                           :key="item.id"
+                           :style="{color:randomColor(), fontSize:randomSize()}"
+                        >
+                            {{item.tag}}
+                        </a>
+                    </div>
+                </div>
+                <div class="panel" id="recently_hot">
+                    <div class="title">最近热门</div>
+                    <div class="recently-hot">
+                        <ul>
+                            <li v-for="item in article" :key="item.id">
+                                <a :href="'./blogDetails.html?bid=' + item.id">{{item.title}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel" id="recently_comments">
+                    <div class="title">最近评论</div>
+                    <div class="recently-comments">
+                        <ul>
+                            <li v-for="item in commentList">
+                                <p>
+                                    <span  class="user">{{item.user_name}}</span>
+                                    <span class="time">[{{item.time}}]</span>
+                                </p>
+                                <a href="/">{{item.comment}}</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer class="footer">
+        <p>
+            Copyright © 2019-2019
+        </p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="./js/axios.min.js" ></script>
+    <script src="./js/blogDetails.js" ></script>
+    <script src="./js/base.js" ></script>
+</body>
+</html>

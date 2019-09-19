@@ -1,0 +1,130 @@
+.comments-wrap{
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #1a1a1a;
+    padding: 30px 20px 20px 20px ;
+    box-sizing: border-box;
+}
+.comment-box{
+    margin: 20px 0;
+    border: 2px dashed #0f73b4;
+    background-color: rgba(96, 182, 221, 0.3);
+    padding: 10px;
+}
+.comment-box p {
+    margin-bottom: 5px;
+    color: #292929;
+    font-size: 14px;
+}
+.comment > p .username {
+    font-size: 16px;
+    font-weight: bold;
+}
+.comment > p > a{
+    color: #292929;
+}
+.comment > p > a:hover{
+    color: #0f73b4;
+}
+.reply{
+    border-top: 1px dashed #292929;
+    margin: 10px 0 0 60px;
+}
+.reply > p .username {
+    font-weight: bold;
+}
+.reply > p > a{
+    color: #292929;
+}
+.reply > p > a:hover{
+    color: #0f73b4;
+}
+
+.turn-comment ul {
+    text-align: center;
+    margin-bottom: 10px;
+}
+.turn-comment li{
+    display: inline-block;
+    text-align: center;
+    line-height: 25px;
+    width: 30px;
+    height: 25px;
+    border-radius: 3px;
+    background-color: rgba(96, 182, 221, 0.3);
+    color: #0f73b4;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.turn-comment .cur-comment,.turn-comment li:hover{
+    background-color: rgba(96, 182, 221, 0.7);
+    color: #292929;
+}
+
+.edit-wrap{
+    margin: 30px 0;
+    box-shadow: 0px 0px 5px #1a1a1a;
+    padding: 30px 20px 20px 20px ;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.edit-box{
+    margin-top: 20px;
+}
+.edit-box .has_cookie {
+    font-size: 14px;
+}
+.edit-box .has_cookie > strong{
+    font-size: 16px;
+}
+
+.edit-box input {
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #777777;
+    margin-right: 20px;
+    padding: 0 10px;
+}
+.nickname{
+    width: 150px;
+    height: 30px;
+
+}
+.email{
+    width: 210px;
+    height: 30px;
+}
+.edit-box > span {
+    font-size: 14px;
+    color: #ff0000;
+}
+.edit-content{
+    display: block;
+    width: 90%;
+    height: 100px;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #777777;
+}
+.identify{
+    width: 150px;
+    height: 30px;
+    margin-top: 15px;
+}
+.edit-box button{
+    display: inline-block;
+    margin: 15px 10px 0 0 ;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #777777;
+    cursor: pointer;
+}
+.edit-box .disable{
+    cursor: not-allowed;
+}
+.edit-box b{
+    display: inline-block;
+    font-size: 14px;
+    color: #2e9634;
+    font-weight: 400;
+}
